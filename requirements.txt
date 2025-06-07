@@ -1,0 +1,5 @@
+numpy>=1.21.0
+mujoco>=2.3.0
+gymnasium[mujoco]>=0.28.0
+matplotlib>=3.5.0
+scipy>=1.8.0
