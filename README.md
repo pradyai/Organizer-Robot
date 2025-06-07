@@ -75,3 +75,20 @@ docker stop my-app-container
 # Optional: Remove the container
 docker rm my-app-container
 ```
+
+
+# MuJoCo-Specific Tips
+Environment Variables in Container:
+    MUJOCO_GL=osmesa for headless rendering
+    Mount X11 socket for GUI applications
+    Consider using VNC for remote GUI access
+
+# Testing MuJoCo Setup:
+import mujoco
+import gymnasium as gym
+
+# Test basic MuJoCo functionality
+env = gym.make('HalfCheetah-v4')
+obs, info = env.reset()
+print("MuJoCo setup successful!")
+
