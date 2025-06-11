@@ -24,9 +24,9 @@ This script will:
 - Set up necessary **volume mounts** and **environment variables**
 - Launch Isaac Sim with WebRTC streaming support
 
-### 2. Launch the WebRTC Streaming Client
+### 2. Download and Launch the WebRTC Streaming Client
 
-After the Isaac Sim is fully started:
+After the Isaac Sim is fully started download Issac Sim WebRTC Streaming Client from https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html#isaac-sim-latest-release to the project folder. Ensure the file is executable and then run it:
 
 ```bash
 ./nvidia_webrtc_streaming_client.AppImage
