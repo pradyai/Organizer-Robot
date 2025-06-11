@@ -11,7 +11,7 @@ This project provides a shell script to configure and launch NVIDIA Isaac Sim wi
   
 ## Clone Robot Arm repository 
 
-- git clone the following repository to the Issac-sim-assets directory https://github.com/TheRobotStudio/SO-ARM100/tree/main
+- Clone the following repository to the Issac-sim-assets directory https://github.com/TheRobotStudio/SO-ARM100/tree/main
 
 ## Usage
 
