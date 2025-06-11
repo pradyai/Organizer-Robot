@@ -8,6 +8,10 @@ This project provides a shell script to configure and launch NVIDIA Isaac Sim wi
 - Docker with NVIDIA GPU support
 - NVIDIA WebRTC Streaming Client (`nvidia_webrtc_streaming_client_AppImage`)
 - Linux system with compatible GPU drivers
+  
+## Clone Robot Arm repository 
+
+- git clone the following repository to the Issac-sim-assets directory https://github.com/TheRobotStudio/SO-ARM100/tree/main
 
 ## Usage
 
@@ -26,9 +30,10 @@ This script will:
 
 ### 2. Download and Launch the WebRTC Streaming Client
 
-After the Isaac Sim is fully started download Issac Sim WebRTC Streaming Client from https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html#isaac-sim-latest-release to the project folder. Ensure the file is executable and then run it:
+After the Isaac Sim is fully started download Issac Sim WebRTC Streaming Client from https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html#isaac-sim-latest-release to the project folder and run the following:
 
 ```bash
+chmod +x nvidia_webrtc_streaming_client.AppImage
 ./nvidia_webrtc_streaming_client.AppImage
 ```
 
@@ -45,7 +50,6 @@ In the WebRTC client:
 - If you experience connectivity issues, ensure that `localhost` or the container’s IP is reachable and the signaling server is correctly configured.
 
 ## Files
-
 - `run_issac.sh`: Script that launches Isaac Sim with required configuration
 - `nvidia_webrtc_streaming_client.AppImage`: Standalone binary to connect to the Isaac Sim instance via WebRTC
 
