@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="simple_table">
+  <link name="table_link">
+    <visual>
+      <geometry>
+        <mesh filename="table.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <geometry>
+        <mesh filename="table.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.083" ixy="0.0" ixz="0.0"
+               iyy="0.083" iyz="0.0"
+               izz="0.083"/>
+    </inertial>
+  </link>
+</robot>
