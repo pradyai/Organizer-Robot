@@ -1,0 +1,11 @@
+numpy>=1.21.0
+mujoco>=2.3.0
+gymnasium[mujoco]>=0.28.0
+matplotlib>=3.5.0
+scipy>=1.8.0
+#openvla dependencies
+timm==0.9.10
+tokenizers==0.19.1
+torch>=2.2.0
+torchvision>=0.16.0
+transformers==4.40.1
