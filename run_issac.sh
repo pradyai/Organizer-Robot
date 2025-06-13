@@ -5,7 +5,7 @@ set -e
 ISAAC_IMAGE="nvcr.io/nvidia/isaac-sim:4.5.0"
 CONTAINER_NAME="isaac-sim"
 CACHE_DIR="$HOME/docker/isaac-sim"
-ASSET_VOLUME="$HOME/my_projects/lerobot_ws/issac_sim_assets"
+ASSET_VOLUME="$PWD/issac_sim_assets"
 ROS_DOMAIN_ID=0
 
 # Verify the folder exists
