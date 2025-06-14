@@ -37,7 +37,7 @@ Now, run the container. This command does two important things:
 * `-v "$(pwd)/Mounted_Repo:/app/Mounted_Repo"`: Mounts the `Mounted_Repo` directory from your local machine (present working directory) into the `/app/Mounted_Repo` directory inside the container.
 
 ```bash
-docker run -d --name my-app-container -v "$(pwd)/Mounted_Repo:/app/Mounted_Repo" my-project-env
+docker run -it --gpus all --name my-app-container -v "${pwd}/hishamstest:/app/Mounted_Repo" my-project-env bash
 ```
 **For Windows Users (PowerShell):**
 Use `${pwd}` instead of `$(pwd)`:

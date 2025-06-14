@@ -1,3 +1,6 @@
+#Hisham: docker run -it --gpus all --name my-app-container -v "${pwd}/hishamstest:/app/Mounted_Repo" my-project-env bash
+
+
 FROM python:3.10-slim
 
 # Install system dependencies for MuJoCo
