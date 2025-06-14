@@ -69,7 +69,7 @@ image = Image.fromarray(frame_rgb)
 
 # Prompt (insert real instruction)
 print("Processing input...")
-instruction = "pick up the black headphones"
+instruction = "pick up the tshirt"
 prompt = f"In: What action should the robot take to {instruction}?\nOut:"
 
 # Process input and predict action

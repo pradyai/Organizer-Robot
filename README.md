@@ -81,7 +81,7 @@ docker rm my-app-container
 2. Run the docker container using the command above - I used VSCode to run the container
 3. Run the script openvlatest.py and it (hopefully) works. 
 4. The output should contain an array of coordinates, as documented in OpenVLA.
-5. You can upload your own picture and modify the instruction
+5. You can upload your own picture and modify the instruction and see the different outputs
 
 # MuJoCo-Specific Tips
 Environment Variables in Container:
