@@ -33,10 +33,14 @@ This script will:
 After the Isaac Sim is fully started download Issac Sim WebRTC Streaming Client from https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html#isaac-sim-latest-release to the project folder and run the following:
 
 ```bash
+chmod +x isaacsim-webrtc-streaming-client-1.0.6-linux-x64.AppImage
+./isaacsim-webrtc-streaming-client-1.0.6-linux-x64.AppImage
+```
+<!-- 
+```bash
 chmod +x nvidia_webrtc_streaming_client.AppImage
 ./nvidia_webrtc_streaming_client.AppImage
-```
-
+``` -->
 ### 3. Connect to Isaac Sim
 
 In the WebRTC client:
