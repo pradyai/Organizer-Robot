@@ -37,12 +37,12 @@ Now, run the container. This command does two important things:
 * `-v "$(pwd)/Mounted_Repo:/app/Mounted_Repo"`: Mounts the `Mounted_Repo` directory from your local machine (present working directory) into the `/app/Mounted_Repo` directory inside the container.
 
 ```bash
-docker run -it --gpus all --name my-app-container -v "${pwd}/hishamstest:/app/Mounted_Repo" my-project-env bash
+docker run -d --name my-app-container -v "$(pwd)/Mounted_Repo:/app/Mounted_Repo" my-project-env
 ```
 **For Windows Users (PowerShell):**
 Use `${pwd}` instead of `$(pwd)`:
 ```powershell
-docker run -d --name my-app-container -v "${pwd}/Mounted_Repo:/app/Mounted_Repo" my-project-env
+docker run -it --gpus all --name my-app-container -v "${pwd}/hishamstest:/app/Mounted_Repo" my-project-env bash
 ```
 
 ### 4. Access the Container
@@ -75,7 +75,13 @@ docker stop my-app-container
 # Optional: Remove the container
 docker rm my-app-container
 ```
+### 6. Start the OpenVLA model.
 
+1. make sure you are in the root folder "Organizer-Robot"
+2. Run the docker container using the command above - I used VSCode to run the container
+3. Run the script openvlatest.py and it (hopefully) works. 
+4. The output should contain an array of coordinates, as documented in OpenVLA.
+5. You can upload your own picture and modify the instruction
 
 # MuJoCo-Specific Tips
 Environment Variables in Container:
