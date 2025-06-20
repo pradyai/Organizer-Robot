@@ -21,40 +21,8 @@ vla = AutoModelForVision2Seq.from_pretrained(
     trust_remote_code=True
 ).to("cuda:0")
 
-'''
-# Capture a single frame from webcam
-print("Capturing image from webcam...")
-cap = cv2.VideoCapture(0)
-ret, frame = cap.read()
-cap.release()
 
-if not ret:
-    raise RuntimeError("Failed to capture image from webcam")
-
-print("Image captured successfully.")
-# Show the frame (OpenCV window)
-cv2.imshow("Captured Frame", frame)
-cv2.waitKey(0)  # Press any key to close the window
-cv2.destroyAllWindows()
-
-stream_url = "http://host.docker.internal:8080"
-
-cap = cv2.VideoCapture(stream_url)
-ret, frame = cap.read()
-if ret:
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    plt.imshow(frame_rgb)
-    plt.axis('off')
-    plt.savefig("frame_plot.png")
-    print("Saved frame plot as frame_plot.png")
-else:
-    print("Failed to read frame")
-
-cap.release()
-
-'''
-
-pil_img = Image.open("frame_plot.png").convert("RGB")
+pil_img = Image.open("frame_plot.jpg").convert("RGB")
 
 # Convert PIL Image to NumPy array (RGB)
 frame_rgb = np.array(pil_img)
@@ -69,7 +37,7 @@ image = Image.fromarray(frame_rgb)
 
 # Prompt (insert real instruction)
 print("Processing input...")
-instruction = "pick up the tshirt"
+instruction = "pick up the white cup"
 prompt = f"In: What action should the robot take to {instruction}?\nOut:"
 
 # Process input and predict action
@@ -77,4 +45,5 @@ inputs = processor(prompt, image).to("cuda:0", dtype=torch.bfloat16)
 action = vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
 
 # Output
+print("The action for the given prompt is:")
 print("Predicted action:", action)
