@@ -1,5 +1,4 @@
-# Organizer-Robot
-# Project Environment with Docker
+## Organizer-Robot
 
 # How to start the openvla pretrained basic model
 
@@ -14,3 +13,5 @@
    ```
 
 This runs an older demonstration version of openvla with the image of my headphones and a cup. For integration with the simulation environment, run the file ```openvlatest.py``` 
+
+Further things: We need to figure out how to use Attention in the docker container, ```flash_attn``` still doesn't work yet.
