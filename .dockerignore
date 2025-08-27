@@ -1,6 +1,6 @@
 .git
 .gitignore
-README.md
+
 Dockerfile
 .dockerignore
 .pytest_cache

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SO101 gripper with single moving jaw. The gripper uses a fixed part as one finger
+    and has a moving jaw as the second finger.
+-->
+<mujoco model="so101_gripper">
+    <!-- Define class for the gripper actuator -->
+    <default>
+        <default class="so101_gripper">
+            <!-- Using same parameters as in robot.xml -->
+            <joint damping="0.60" frictionloss="0.052" armature="0.028"/>
+            <position kp="17.8"/>
+            <geom contype="0" conaffinity="0"/>
+        </default>
+    </default>
+
+    <asset>
+        <!-- Reference the mesh from robot assets -->
+        <mesh name="moving_jaw_so101_v1" file="meshes/so101_gripper/moving_jaw_so101_v1.stl"/>
+        <mesh name="wrist_roll_follower_so101_v1" file="meshes/so101_gripper/wrist_roll_follower_so101_v1.stl"/>
+        <mesh name="sts3215_03a_v1" file="meshes/so101_gripper/sts3215_03a_v1.stl"/>
+        
+        <!-- Material definitions -->
+        <material name="moving_jaw_so101_v1_material" rgba="1 0.82 0.12 1"/>
+        <material name="wrist_roll_follower_so101_v1_material" rgba="1 0.82 0.12 1"/>
+        <material name="sts3215_03a_v1_material" rgba="0.1 0.1 0.1 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Base frame of the gripper -->
+        <body name="gripper_base" pos="0 0 0">
+            <!-- Required sites for robosuite compatibility -->
+            <site name="ft_frame" pos="0 0 0" size="0.01 0.01 0.01" rgba="1 0 0 1" type="sphere" group="1"/>
+            <site name="grip_site" pos="0 0 0" size="0.01 0.01 0.01" rgba="1 0 0 0.5" type="sphere" group="1"/>
+            <site name="grip_site_cylinder" pos="0 0 0" size="0.005 0.1" rgba="0 1 0 0.3" type="cylinder" group="1"/>
+            
+            <!-- End effector frame - THIS IS REQUIRED BY ROBOSUITE -->
+            <body name="eef" pos="0 0 0.0" quat="0.707 0. -0.707 0.">
+                <!-- Coordinate frame visualization sites -->
+                <site name="ee" pos="0 0 0" size="0.01" rgba="0 0 1 1" type="sphere"/>
+                <site name="ee_x" pos="0 0 0" size="0.005 .1" quat="0.707105 0.707108 0 0" rgba="1 0 0 0" type="cylinder"/>
+                <site name="ee_y" pos="0 0 0" size="0.005 .1" quat="0.707105 0 0.707108 0" rgba="0 1 0 0" type="cylinder"/>
+                <site name="ee_z" pos="0 0 0" size="0.005 .1" quat="0.707105 0 0 0.707108" rgba="0 0 1 0" type="cylinder"/>
+            </body>
+
+            <!-- Gripper structure - includes parts moved from robot.xml -->
+            <body name="gripper_structure" pos="0 0 0">
+                <!-- Part sts3215_03a_v1 -->
+                <geom type="mesh" contype="0" conaffinity="0" group="1" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+                <geom type="mesh" group="0" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+                
+                <!-- Part wrist_roll_follower_so101_v1 -->
+                <geom type="mesh" contype="0" conaffinity="0" group="1" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" mesh="wrist_roll_follower_so101_v1" material="wrist_roll_follower_so101_v1_material"/>
+                <geom type="mesh" group="0" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" mesh="wrist_roll_follower_so101_v1" material="wrist_roll_follower_so101_v1_material"/>
+
+                <!-- Frame gripperframe -->
+                <site group="0" name="gripperframe" pos="-0.0079 -0.000218121 -0.0981274" quat="0.707107 -0 0.707107 -2.37788e-17"/>
+                
+                <!-- Link moving_jaw_so101_v1 -->
+                <body name="moving_jaw_so101_v1" pos="0.0202 0.0188 -0.0234" quat="0.707107 0.707107 -1.85362e-08 1.85362e-08">
+                    <!-- Joint from gripper to moving_jaw_so101_v1 -->
+                    <joint axis="0 0 1" name="gripper" type="hinge" range="-0.17453297762778586 1.7453291995659765" class="so101_gripper"/>
+                    <inertial pos="-0.00157495 -0.0300244 0.0192755" mass="0.012" fullinertia="6.61427e-06 1.89032e-06 5.28738e-06 -3.19807e-07 -5.90717e-09 -1.09945e-07"/>
+                    <!-- Part moving_jaw_so101_v1 -->
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" pos="-5.55112e-17 -5.55112e-17 0.0189" quat="1 -0 3.00524e-16 -2.00834e-17" mesh="moving_jaw_so101_v1" material="moving_jaw_so101_v1_material"/>
+                    <geom name="moving_jaw_collision" type="mesh" group="0" pos="-5.55112e-17 -5.55112e-17 0.0189" quat="1 -0 3.00524e-16 -2.00834e-17" mesh="moving_jaw_so101_v1" material="moving_jaw_so101_v1_material"/>
+                    
+                    <!-- Add fingertip site for grasping -->
+                    <site name="fingertip_site" pos="0 0 0.02" size="0.005" rgba="0.8 0 0 1" type="sphere"/>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <sensor>
+        <!-- Force sensor -->
+        <force name="force_ee" site="ft_frame"/>
+        <!-- Torque sensor -->
+        <torque name="torque_ee" site="ft_frame"/>
+    </sensor>
+
+    <actuator>
+        <!-- Gripper actuator -->
+        <position name="robot0_gripper" joint="gripper" ctrlrange="-0.17453297762778586 1.7453291995659765" forcerange="-3.35 3.35"/>
+    </actuator>
+
+</mujoco>
+
