@@ -1,94 +1,23 @@
 # Organizer-Robot
-# Project Environment with Docker
+# Project Environment with Docker - smolVLA
 
-This repository is configured to run within a Docker container, allowing for a consistent and isolated development environment.
-
-The main project folder, `Mounted_Repo`, is mounted directly into the container. This means any changes you make to the files on your local machine will be immediately reflected inside the container, and vice-versa.
-
-## Prerequisites
-
-Before you begin, ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running on your system.
-
-## How to Use 🚀
-
-Follow these steps to build the Docker image and run the container.
-
-### 1. Clone the Repository
-
-First, clone this repository to your local machine.
+1. Build the Docker container in the `testfolder` directory:
 
 ```bash
-git clone <your-repository-url>
-cd <your-repo-name>
+docker build -t smolvla_img .
 ```
-
-### 2. Build the Docker Image
-
-From the root directory of the project (where the `Dockerfile` is located), run the following command to build the Docker image. We will tag it with the name `my-project-env`.
+2. Run the container and mount the `testfolder` repository inside the container:
 
 ```bash
-docker build -t my-project-env .
-```
+docker run --rm -it --network=host \
+  -v $(pwd)/testfolder:/app/testfolder \
+  smolvla_img
+``` 
 
-### 3. Run the Docker Container
-
-Now, run the container. This command does two important things:
-* `-d`: Runs the container in detached mode (in the background).
-* `-v "$(pwd)/Mounted_Repo:/app/Mounted_Repo"`: Mounts the `Mounted_Repo` directory from your local machine (present working directory) into the `/app/Mounted_Repo` directory inside the container.
+3. Then, you can run three scripts: loading, training and evaluating smolVLA. You need to be inside `hishamstest/smolvla_test` (currently only for testing):
 
 ```bash
-docker run -d --name my-app-container -v "$(pwd)/Mounted_Repo:/app/Mounted_Repo" my-project-env
+python testfolder/load_smolvla.py
+python testfolder/train_smolvla.py
+python testfolder/eval_smolvla.py
 ```
-**For Windows Users (PowerShell):**
-Use `${pwd}` instead of `$(pwd)`:
-```powershell
-docker run -d --name my-app-container -v "${pwd}/Mounted_Repo:/app/Mounted_Repo" my-project-env
-```
-
-### 4. Access the Container
-
-Your container is now running with the `Mounted_Repo` folder linked. To access the container's command line (shell), use the `docker exec` command:
-
-```bash
-docker exec -it my-app-container bash
-```
-
-Once inside, you can navigate and see your mounted files:
-
-```bash
-# You are now inside the container's shell at the /app directory
-ls
-
-# You should see the Mounted_Repo directory
-ls Mounted_Repo
-```
-You will see the `Hisham`, `Ahmed`, `Pradyumn`, and `Shubham` folders. Any file you create here will appear on your local machine, and any file you modify on your local machine will be updated here.
-
-### 5. Stop the Container
-
-When you are finished, you can stop and remove the container to keep your system clean.
-
-```bash
-# Stop the container
-docker stop my-app-container
-
-# Optional: Remove the container
-docker rm my-app-container
-```
-
-
-# MuJoCo-Specific Tips
-Environment Variables in Container:
-    MUJOCO_GL=osmesa for headless rendering
-    Mount X11 socket for GUI applications
-    Consider using VNC for remote GUI access
-
-# Testing MuJoCo Setup:
-import mujoco
-import gymnasium as gym
-
-# Test basic MuJoCo functionality
-env = gym.make('HalfCheetah-v4')
-obs, info = env.reset()
-print("MuJoCo setup successful!")
-
