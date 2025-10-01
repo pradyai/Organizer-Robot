@@ -21,3 +21,10 @@ python testfolder/load_smolvla.py
 python testfolder/train_smolvla.py
 python testfolder/eval_smolvla.py
 ```
+
+4. To run the socketserver version which publishes a tensor every 10 seconds (probe) you need two terminals and run these two scripts (first the eval, then wait until server connection, then the second):
+
+```bash
+python testfolder/eval_smolvla_socket.py
+python testfolder/testclient.py
+``` 
