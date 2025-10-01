@@ -8,6 +8,8 @@ from transformers import AutoProcessor
 policy = SmolVLAPolicy.from_pretrained("outputs/train/example_smolvla").to("cpu")
 policy.eval()
  
+ 
+ 
 # patch: The loaded policy is missing the language_tokenizer attribute.
 policy.language_tokenizer = AutoProcessor.from_pretrained(policy.config.vlm_model_name).tokenizer
  

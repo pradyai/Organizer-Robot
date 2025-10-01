@@ -22,15 +22,17 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Clone the lerobot repo
-RUN git clone https://github.com/huggingface/lerobot.git
+#RUN git clone https://github.com/huggingface/lerobot.git
+
+COPY lerobot/ /app/
 
 # Change working directory to the repo
 WORKDIR /app/lerobot
 
 # Install pip dependencies, pin torchvision and torchcodec versions
-RUN pip install --upgrade pip && \
-    pip install torch==2.6.0 torchvision==0.21.0 torchcodec==0.2.1 && \
-    pip install -e ".[smolvla]"
+#RUN pip install --upgrade pip && \
+ #   pip install torch==2.6.0 torchvision==0.21.0 torchcodec==0.2.1 && \
+  #  pip install -e ".[smolvla]"
 
 # Default command
 CMD ["bash"]

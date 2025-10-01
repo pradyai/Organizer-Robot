@@ -48,7 +48,7 @@ def main():
     # creating the policy:
     #   - input/output shapes: to properly size the policy
     #   - dataset stats: for normalization and denormalization of input/outputs
-    dataset_metadata = LeRobotDatasetMetadata("lerobot/svla_so100_stacking")
+    dataset_metadata = LeRobotDatasetMetadata("lerobot/svla_so100_pickplace")
     features = dataset_to_policy_features(dataset_metadata.features)
     output_features = {key: ft for key, ft in features.items() if ft.type is FeatureType.ACTION}
     input_features = {key: ft for key, ft in features.items() if key not in output_features}
@@ -70,7 +70,7 @@ def main():
     }
 
     # We can then instantiate the dataset with these delta_timestamps configuration.
-    dataset = LeRobotDataset("lerobot/svla_so100_stacking", delta_timestamps=delta_timestamps)
+    dataset = LeRobotDataset("lerobot/svla_so100_pickplace", delta_timestamps=delta_timestamps)
     print(dataset.hf_dataset.column_names)
 
     # Then we create our optimizer and dataloader for offline training.
@@ -111,4 +111,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
