@@ -1,0 +1,3 @@
+[submodule "robosuite_lift"]
+	path = robosuite_lift
+	url = git@github.com:Bingqi-Huang/robosuite_door.git
