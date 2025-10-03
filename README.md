@@ -28,3 +28,22 @@ python testfolder/eval_smolvla.py
 python testfolder/eval_smolvla_socket.py
 python testfolder/testclient.py
 ``` 
+
+5. To spin up the smolvla evaluation server:
+
+```bash
+python testfolder/00_server_eval_smolvla_v2.py 
+```
+
+test it with:
+
+```bash
+python python testfolder/00_client_sendactionreq_v1.py 
+```
+
+6. To run the actual PolicyServer:
+
+```bash
+PYTHONPATH=/app/src python -m testfolder.01_policy_server_v1     --host=127.0.0.1     --port=8080     --fps=30     --inference_latency=0.033     --obs_queue_timeout=1
+```
+
