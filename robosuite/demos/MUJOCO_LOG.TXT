@@ -19,3 +19,6 @@ ERROR: could not create window
 Fri Oct  3 22:16:33 2025
 ERROR: mjv_updateSceneState: m->nu changed
 
+Sat Oct  4 00:27:19 2025
+ERROR: mjv_updateSceneState: m->nu changed
+
