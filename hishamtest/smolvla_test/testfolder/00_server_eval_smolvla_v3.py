@@ -52,7 +52,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     # Convert observation fields to torch tensors
                     obs_dict = timed_obs.observation
                     obs_dict["observation.images.top"] = obs_dict["observation.images.top"].float()
-                    obs_dict["observation.images.side"] = obs_dict["observation.images.side"].float()
+                    obs_dict["observation.images.wrist"] = obs_dict["observation.images.wrist"].float()
                     obs_dict["observation.state"] = obs_dict["observation.state"].float()
                     
                     obs_dict["task"] = ["stack the blocks"]  # empty instruction

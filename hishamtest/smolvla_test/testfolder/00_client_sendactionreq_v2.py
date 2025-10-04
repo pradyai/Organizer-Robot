@@ -13,10 +13,12 @@ batch_size = 1
 img_shape = (3, 512, 512)
 state_dim = 6
 
+#from here ------
+
 dummy_obs_dict = {
-    "observation.images.top": torch.rand(batch_size, *img_shape),   # torch tensor
-    "observation.images.side": torch.rand(batch_size, *img_shape),  # torch tensor
-    "observation.state": torch.rand(batch_size, state_dim)           # torch tensor
+    "observation.images.top": torch.rand(batch_size, *img_shape), #here, put the actual camera observation
+    "observation.images.wrist": torch.rand(batch_size, *img_shape),  
+    "observation.state": torch.rand(batch_size, state_dim)          
 }
 
 # Wrap in TimedObservation
