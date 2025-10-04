@@ -41,6 +41,7 @@ from dataclasses import asdict
 from pprint import pformat
 from queue import Queue
 from typing import Any
+import numpy as np
 
 import draccus
 import grpc
@@ -92,28 +93,10 @@ class RobotClient:
         # Store configuration
         self.config = config
         self.robot = make_robot_from_config(config.robot)
-        self.robot.connect()
+        #self.robot.connect()
 
         lerobot_features = map_robot_keys_to_lerobot_features(self.robot)
 
-        if config.verify_robot_cameras:
-            # Load policy config for validation
-            policy_config = PreTrainedConfig.from_pretrained(config.pretrained_name_or_path)
-            policy_image_features = policy_config.image_features
-
-            # The cameras specified for inference must match the one supported by the policy chosen
-            validate_robot_cameras_for_policy(lerobot_features, policy_image_features)
-
-        # Use environment variable if server_address is not provided in config
-        self.server_address = config.server_address
-
-        self.policy_config = RemotePolicyConfig(
-            config.policy_type,
-            config.pretrained_name_or_path,
-            lerobot_features,
-            config.actions_per_chunk,
-            config.policy_device,
-        )
         self.channel = grpc.insecure_channel(
             self.server_address, grpc_channel_options(initial_backoff=f"{config.environment_dt:.4f}s")
         )
@@ -181,7 +164,7 @@ class RobotClient:
         """Stop the robot client"""
         self.shutdown_event.set()
 
-        self.robot.disconnect()
+        #self.robot.disconnect()
         self.logger.debug("Robot disconnected")
 
         self.channel.close()
@@ -407,7 +390,11 @@ class RobotClient:
             # Get serialized observation bytes from the function
             start_time = time.perf_counter()
 
-            raw_observation: RawObservation = self.robot.get_observation() #here, get the observation from the simulation (socket server) --------------------------------------------------
+            raw_observation: RawObservation = {
+            "observation.images.top": np.random.randint(0, 255, (480, 640, 3), dtype=np.uint8),
+            "observation.images.side": np.random.randint(0, 255, (480, 640, 3), dtype=np.uint8),
+            "observation.state": np.random.rand(6).astype(np.float32),
+            }
             raw_observation["task"] = task
 
             with self.latest_action_lock:

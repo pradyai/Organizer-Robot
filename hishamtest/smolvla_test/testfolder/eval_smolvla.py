@@ -17,11 +17,12 @@ policy.language_tokenizer = AutoProcessor.from_pretrained(policy.config.vlm_mode
 batch_size = 1
 img_shape = (3, 512, 512)  # (C, H, W)
 # Infer state_dim from the loaded normalization stats
-state_dim = policy.normalize_inputs.buffer_observation_state.mean.shape[-1]
+state_dim = 6
  
 dummy_batch = {
     # a single image observation
     "observation.images.top": torch.rand(batch_size, *img_shape, device="cpu"),
+    "observation.images.side": torch.rand(batch_size, *img_shape, device="cpu"),
     # a single state observation
     "observation.state": torch.rand(batch_size, state_dim, device="cpu"),
     "task": ["stack the blocks"] * batch_size,
